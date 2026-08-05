@@ -1,8 +1,11 @@
 #!/usr/bin/env node
-const { spawnSync } = require('child_process')
-const fs = require('fs')
-const path = require('path')
+import { spawnSync } from 'child_process'
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 const root = path.resolve(__dirname, '..')
 const hotFile = path.join(root, 'public', 'hot')
 
@@ -17,5 +20,13 @@ if (fs.existsSync(hotFile)) {
   console.log('public/hot not found')
 }
 
-const res = spawnSync('npm', ['run', 'build'], { stdio: 'inherit', cwd: root })
+const npmExecPath = process.env.npm_execpath
+const npmCommand = npmExecPath ? process.execPath : process.platform === 'win32' ? 'npm.cmd' : 'npm'
+const npmArgs = npmExecPath ? [npmExecPath, 'run', 'build'] : ['run', 'build']
+
+const res = spawnSync(npmCommand, npmArgs, { stdio: 'inherit', cwd: root })
+if (res.error) {
+  console.error('Failed to start npm:', res.error)
+  process.exit(1)
+}
 process.exit(res.status)
