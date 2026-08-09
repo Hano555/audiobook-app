@@ -9,7 +9,6 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.jsx'],
-            refresh: true,
             fonts: [
                 bunny('Instrument Sans', {
                     weights: [400, 500, 600],
@@ -21,6 +20,9 @@ export default defineConfig({
         inertia(),
     ],
     server: {
+        port: 5173,
+        strictPort: true,
+        hmr: false,
         watch: {
             ignored: ['**/storage/framework/views/**'],
         },

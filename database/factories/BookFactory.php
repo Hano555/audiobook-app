@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class BookFactory extends Factory
 {
+
     /**
      * Define the model's default state.
      *
@@ -18,11 +19,11 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => \App\Models\User::factory(),
-            'title' => fake()->sentence(),
-            'author' => fake()->name(),
+            'title'             => fake()->sentence(),
+            'author'            => fake()->name(),
             'original_filename' => fake()->word() . '.pdf',
-            'status' => fake()->randomElement(['pending', 'approved', 'rejected']),
+            'pdf_path'          => fake()->filePath(),
+            'status'            => 'pending',
         ];
     }
 }

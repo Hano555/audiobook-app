@@ -3,12 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Book;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
 
     /**
      * Seed the application's database.
@@ -22,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        \App\Models\Book::factory(1)->create();
+        Book::factory(5)->create();
+
     }
 }

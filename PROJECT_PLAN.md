@@ -39,7 +39,7 @@ A web app built for converting uploaded `.pdf` books into audiobooks using backg
 - [x] `Book` model exists
 - [x] `BookController@index` and book list page exist
 - [x] `books` migration exists
-- [ ] PDF upload UI and backend route
+- [x] PDF upload UI and backend route
 - [ ] `Chapter` model and migration
 - [ ] PDF text extraction and cleanup pipeline
 - [ ] Queue job workflow and chunked audio processing

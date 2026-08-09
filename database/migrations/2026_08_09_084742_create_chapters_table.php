@@ -6,27 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('author')->nullable();
-            $table->string('original_filename')->nullable();
-            $table->string('pdf_path')->nullable();
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+            $table->unsignedSmallInteger('chapter_number');
+            $table->string('title')->nullable();
+            $table->longText('text_content');
+            $table->string('audio_path')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('chapters');
     }
 };
