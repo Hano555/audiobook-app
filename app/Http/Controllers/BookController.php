@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Services\PdfTextExtractor;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -32,13 +34,25 @@ class BookController extends Controller
         $file = $request->file('pdf');
         $path = $file->store('books', 'public');
 
-        Book::create([
+        $book = Book::create([
             'title' => $request->input('title') ?: pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
             'author' => $request->input('author'),
             'original_filename' => $file->getClientOriginalName(),
             'pdf_path' => $path,
             'status' => 'pending',
         ]);
+
+        $booktextextractor = new PdfTextExtractor();
+
+        $bookfullPath = Storage::disk('public')->path($book->pdf_path);
+
+        $chaptertext = $booktextextractor->extract($bookfullPath);
+
+        $book->chapters()->first()->update([
+            'text_content' => $chaptertext,
+            'status'       => 'processing',
+        ]);
+
 
         return redirect()->back()->with('success', 'PDF uploaded successfully.');
     }
