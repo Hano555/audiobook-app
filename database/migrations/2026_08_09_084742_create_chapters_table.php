@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->longText('text_content');
             $table->string('audio_path')->nullable();
-            $table->string('status')->default('pending');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

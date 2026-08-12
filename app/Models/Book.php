@@ -26,7 +26,7 @@ class Book extends Model
                 'chapter_number' => 1,
                 'title'          => null,
                 'text_content'   => '',
-                'status'         => 'pending',
+                'status'         => null,
             ]);
         });
     }

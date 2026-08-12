@@ -42,6 +42,10 @@ class BookController extends Controller
             'status' => 'pending',
         ]);
 
+        //We are extracting the saved PDF book on creation into pdf text using pdf extractor, since PHP natively cannot read PDF files.
+        //So first we install the package required for this and then use it to extract uncleaned pdf text and
+        //then clean it using regex expressions and then save it and thereafter update the created chapter record and updated the fields with that cleaned text and change the status
+
         $booktextextractor = new PdfTextExtractor();
 
         $bookfullPath = Storage::disk('public')->path($book->pdf_path);
@@ -50,7 +54,7 @@ class BookController extends Controller
 
         $book->chapters()->first()->update([
             'text_content' => $chaptertext,
-            'status'       => 'processing',
+            'status'       => 'pending',
         ]);
 
 
