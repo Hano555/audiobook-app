@@ -131,9 +131,30 @@ export default function Index({ books }) {
                                         {book.status}
                                     </span>
                                 </div>
+
                                 <div className="text-sm text-gray-500 mt-1">
                                     {book.chapters.length} chapter(s)
+                                    {book.chapters[0]?.status === "completed" && (
+                                        <div className="mt-2">
+                                            <audio
+                                                src={`/storage/${book.chapters[0].audio_path}`}
+                                                controls
+                                                className="w-full mt-1"
+                                            />
+
+                                            <a
+                                                href={`/storage/${book.chapters[0].audio_path}`}
+                                                download
+                                                className="text-blue-500 text-xs mt-1 block"
+                                            >
+                                                Download Audio
+                                            </a>
+                                        </div>
+                                    )}
+
                                 </div>
+
+
                             </li>
                         ))}
                     </ul>
