@@ -4,6 +4,10 @@ A Laravel app that converts PDF books into audiobooks. Upload a PDF, and the app
 
 This is V1.0 — an MVP focused on validating the full pipeline end to end. The UI is intentionally minimal at this stage. Authentication, real TTS audio, EPUB support, and a polished interface are planned for later versions.
 
+# Screenshots
+
+![Audiobook App](screenshots/app.png)
+
 ## Tech Stack
 - Laravel 13 + Inertia.js + React + Vite
 - PHP 8.4
