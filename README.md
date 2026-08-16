@@ -101,6 +101,7 @@ Open the app at `http://audiobook-app.test`.
 - Real-time status updates via WebSockets
 - Upload progress indicator for large PDFs
 - Scheduled cleanup of old audio files and records
+- Migrate file storage to Cloudflare R2 for scalable, cost-effective object storage
 
 ### V3.0 — Experience and Polish
 - Polished UI and user dashboard
