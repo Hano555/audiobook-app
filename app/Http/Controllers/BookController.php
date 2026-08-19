@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Services\PdfTextExtractor;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,7 +17,10 @@ class BookController extends Controller
     public function index()
     {
         return Inertia::render('Books/Index', [
-            'books' => Book::orderBy('created_at', 'desc')->with('chapters')->get(),
+            'books' => Book::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->with('chapters')
+            ->get(),
         ]);
     }
 
@@ -35,6 +39,7 @@ class BookController extends Controller
         $path = $file->store('books', 'public');
 
         $book = Book::create([
+            'user_id' => Auth::id(),
             'title' => $request->input('title') ?: pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
             'author' => $request->input('author'),
             'original_filename' => $file->getClientOriginalName(),

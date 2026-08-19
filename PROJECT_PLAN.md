@@ -67,7 +67,7 @@ A web app built for converting uploaded `.pdf` books into audiobooks using backg
 - [x] Status badges and README
 
 ### V2.0 (In Progress)
-- [ ] Auth installed and user ownership enforced
+- [x] Auth installed and user ownership enforced
 - [ ] Cloudflare R2 storage configured
 - [ ] Real TTS integration
 - [ ] Book deletion
