@@ -20,7 +20,16 @@ class BookController extends Controller
             'books' => Book::where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->with('chapters')
-            ->get(),
+            ->get()
+            ->map(function ($book) {
+                $book->chapters->map(function ($chapter) {
+                    if ($chapter->audio_path) {
+                        $chapter->audio_url = Storage::disk('s3')->temporaryUrl($chapter->audio_path, now()->addHours(1));
+                    }
+                    return $chapter;
+                });
+                return $book;
+            }),
         ]);
     }
 
@@ -36,7 +45,7 @@ class BookController extends Controller
         ]);
 
         $file = $request->file('pdf');
-        $path = $file->store('books', 'public');
+        $path = $file->store('books', 's3');
 
         $book = Book::create([
             'user_id' => Auth::id(),
@@ -53,9 +62,13 @@ class BookController extends Controller
 
         $booktextextractor = new PdfTextExtractor();
 
-        $bookfullPath = Storage::disk('public')->path($book->pdf_path);
+        $tempPath = tempnam(sys_get_temp_dir(), 'pdf_');
 
-        $chaptertext = $booktextextractor->extract($bookfullPath);
+        file_put_contents($tempPath, Storage::disk('s3')->get($book->pdf_path));
+
+        $chaptertext = $booktextextractor->extract($tempPath);
+
+        unlink($tempPath);
 
         $book->chapters()->first()->update([
             'text_content' => $chaptertext,

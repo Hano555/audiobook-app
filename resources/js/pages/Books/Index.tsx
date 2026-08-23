@@ -5,6 +5,7 @@ interface Chapter {
     id: number;
     status: string;
     audio_path: string | null;
+    audio_url?: string | null;
 }
 
 interface Book {
@@ -127,13 +128,13 @@ export default function Index({ books }: Props) {
                                         {book.chapters[0]?.status === 'completed' && (
                                             <div className="mt-2">
                                                 <audio
-                                                    src={`/storage/${book.chapters[0].audio_path}`}
+                                                    src={book.chapters[0].audio_url ?? ''}
                                                     controls
                                                     className="w-full mt-1"
                                                 />
 
                                                 <a
-                                                    href={`/storage/${book.chapters[0].audio_path}`}
+                                                    href={book.chapters[0].audio_url ?? ''}
                                                     download
                                                     className="text-blue-500 text-xs mt-1 block"
                                                 >
