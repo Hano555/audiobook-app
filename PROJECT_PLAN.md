@@ -66,17 +66,6 @@ A web app built for converting uploaded `.pdf` books into audiobooks using backg
 - [x] Cleanup scheduler
 - [x] Status badges and README
 
-### V2.0 (In Progress)
-- [x] Auth installed and user ownership enforced
-- [ ] Cloudflare R2 storage configured
-- [ ] Real TTS integration
-- [ ] Book deletion
-- [ ] Email notifications
-- [ ] Error handling and retry logic
-- [ ] Upload progress indicator
-- [ ] Stripe payments and free tier limits
-- [ ] V2.0 deployed
-
 ## V1.0 Day-by-Day Roadmap (Completed)
 
 ### Day 1: Setup and inspect the current app
@@ -86,6 +75,18 @@ A web app built for converting uploaded `.pdf` books into audiobooks using backg
 ### Day 5: Add queued audio processing
 ### Day 6: Stitch audio and playback UI
 ### Day 7: Polish MVP and add cleanup
+
+
+### V2.0 (In Progress)
+- [x] Auth installed and user ownership enforced
+- [x] Cloudflare R2 storage configured
+- [x] Real TTS integration
+- [ ] Book deletion
+- [ ] Email notifications
+- [ ] Error handling and retry logic
+- [ ] Upload progress indicator
+- [ ] Stripe payments and free tier limits
+- [ ] V2.0 deployed
 
 ## V2.0 Day-by-Day Roadmap
 
