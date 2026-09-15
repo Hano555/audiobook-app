@@ -78,4 +78,22 @@ class BookController extends Controller
 
         return redirect()->back()->with('success', 'PDF uploaded successfully.');
     }
+
+    public function destroy(Book $book){
+
+        $disk = Storage::disk('s3');
+
+        if($book->pdf_path && $disk->exists($book->pdf_path)){
+            $disk->delete($book->pdf_path);
+        }
+
+        $disk->deleteDirectory('chunks/book_' . $book->id);
+
+        $disk->deleteDirectory('audio-books/' . $book->id);
+
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', 'Book and all associated R2 files deleted cleanly.');
+
+    }
 }
